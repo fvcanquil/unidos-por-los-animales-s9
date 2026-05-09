@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Privado</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container" id="content" style="display: none;">
+        <h2>🏥 Panel de Control</h2>
+        <p>¡Bienvenido al sistema privado de la Veterinaria!</p>
+        <p>Esta página está protegida mediante JWT.</p>
+        <br>
+        <button style="background-color: #ffd3b6;" onclick="logout()">Cerrar Sesión</button>
+    </div>
+
+    <script>
+        // Lógica de Protección de Ruta (Frontend)
+        window.onload = function() {
+            const token = localStorage.getItem('jwtToken');
+            if (!token) {
+                // Si no hay token, lo expulsamos al login
+                window.location.href = '/login';
+            } else {
+                // Si tiene token, mostramos el contenido
+                document.getElementById('content').style.display = 'block';
+            }
+        };
+
+        function logout() {
+            localStorage.removeItem('jwtToken');
+            window.location.href = '/login';
+        }
+    </script>
+</body>
+</html>
